@@ -10,4 +10,4 @@ document.addEventListener("keydown", (event) => {
 });
 ```
 
-[Next: Pig Game](../)
+[Next: Pig Game](../pig-game/01-pig-game.md)
