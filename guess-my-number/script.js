@@ -37,7 +37,8 @@ document.querySelector(".check").addEventListener("click", function () {
     document.querySelector(".message").textContent = "🎉 Correct Number!!";
     score = 20;
     document.querySelector(".score").textContent = score;
-    document.querySelector("body").style.backgroundColor = "#";
+    document.querySelector("body").style.backgroundColor = "#60b347";
+    document.querySelector(".number").style.width = "30rem";
   }
 
   // Number too Low
