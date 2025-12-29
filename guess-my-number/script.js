@@ -1,83 +1,100 @@
 "use strict";
-/*
-// Set content inside html
-document.querySelector(".message").textContent = "Correct Number! 🥳";
+// Function
+function renderMessage(message) {
+  document.querySelector(".message").textContent = `${message}`;
+}
 
-document.querySelector(".number").textContent = "69";
-document.querySelector(".score").textContent = "66";
+function renderScore(score) {
+  document.querySelector(".score").textContent = score;
+}
 
-// Get Value
-document.querySelector(".guess").value = 123;
-console.log(document.querySelector(".guess").value);
-*/
+function renderNumber(number) {
+  document.querySelector(".number").textContent = number;
+}
 
-let secretNumber = Math.trunc(Math.random() * 20) + 1;
-let score = 20;
+function setCSS(color, width) {
+  document.querySelector("body").style.backgroundColor = color;
+  document.querySelector(".number").style.width = width;
+}
 
-document.querySelector(".score").textContent = score;
+function initialSecretNumber() {
+  return Math.trunc(Math.random() * 20) + 1;
+}
+
+const INITIAL_SCORE = 20;
+
+// Storing Initia Value
+let secretNumber = initialSecretNumber();
+let score = INITIAL_SCORE;
+let highScore = 0;
+
+// DOM Manipulation
+renderScore(score);
 
 document.querySelector(".check").addEventListener("click", function () {
   const valueIput = Number(document.querySelector(".guess").value); // string
 
   // Validating Input
   if (!valueIput) {
-    document.querySelector(".message").textContent = "No number !!";
+    renderMessage("No Number");
+    score -= 1;
+    renderScore(score);
+    if (score < 0) {
+      renderMessage("💥 You Lose!! Input the number");
+      renderScore(0);
+      score = 20;
 
-    setTimeout(() => {
-      document.querySelector(".message").textContent = "Start guessing...";
-      return;
-    }, 3000);
+      setTimeout(() => {
+        renderMessage("Start guessing again !!!");
+        renderScore(score);
+
+        return;
+      }, 3000);
+    }
 
     return;
   }
 
   // Correct Number
   if (valueIput === secretNumber) {
-    document.querySelector(".message").textContent = "🎉 Correct Number!!";
-    document.querySelector(".number").textContent = secretNumber;
-    document.querySelector("body").style.backgroundColor = "#60b347";
-    document.querySelector(".number").style.width = "30rem";
-  }
+    renderMessage("🎉 Correct Number!!");
+    renderNumber(secretNumber);
+    setCSS("#60b347", "30rem");
 
-  // Number too Low
-  if (valueIput < secretNumber) {
-    if (score > 1) {
-      document.querySelector(".message").textContent = "Too Low";
-      score -= 1;
-      document.querySelector(".score").textContent = score;
-    } else {
-      document.querySelector(".message").textContent =
-        "💥 Your Lose the game !!";
-      document.querySelector(".score").textContent = 0;
+    if (score > highScore) {
+      highScore = score;
+      document.querySelector(".highscore").textContent = highScore;
     }
   }
 
-  // Number too high
-  if (valueIput > secretNumber) {
+  // Check Value
+  if (valueIput !== secretNumber) {
     if (score > 1) {
-      document.querySelector(".message").textContent = "Too High";
+      renderMessage(
+        valueIput < secretNumber ? "📉 Too low !!" : "📈 Too high !!"
+      );
       score -= 1;
-      document.querySelector(".score").textContent = score;
-    } else {
-      document.querySelector(".message").textContent =
-        "💥 Your Lose the game !!";
-      document.querySelector(".score").textContent = 0;
+      renderScore(score);
+
+      return;
     }
+
+    renderMessage("💥 Your Lose the game !!");
+    renderScore(0);
   }
 });
 
 document.querySelector(".again").addEventListener("click", function () {
   // Initial Value
-  score = 20;
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  score = INITIAL_SCORE;
+  secretNumber = initialSecretNumber();
 
   // Initial UI
   document.querySelector(".guess").value = "";
-  document.querySelector(".score").textContent = score;
-  document.querySelector(".number").textContent = "?";
-  document.querySelector(".message").textContent = "Start guessing...";
+  renderScore(score);
+  renderNumber("?");
+  renderMessage("Start guessing...");
 
   // Reset CSS
-  document.querySelector("body").style.backgroundColor = "#222";
-  document.querySelector(".number").style.width = "15rem";
+  setCSS("#222", "15rem");
 });
