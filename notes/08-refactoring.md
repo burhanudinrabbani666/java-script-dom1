@@ -27,3 +27,5 @@ function initialSecretNumber() {
 
 const INITIAL_SCORE = 20;
 ```
+
+[Next Project: Modal Window](../modal-window/01-wowrking-with-classes.md)

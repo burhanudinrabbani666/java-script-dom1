@@ -1,5 +1,8 @@
-"use strict";
+## Working Witch class
 
+you can remove class css name in html from javascript
+
+```js
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".close-modal");
@@ -24,3 +27,6 @@ for (let index = 0; index < btnsOpenModal.length; index++) {
 // Close Modal
 btnCloseModal.addEventListener("click", hideModal);
 overlay.addEventListener("click", hideModal);
+```
+
+[Next: Handling esc](./02-handling-esc.md)
