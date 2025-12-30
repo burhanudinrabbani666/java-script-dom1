@@ -14,7 +14,7 @@ const holdDiceEl = document.querySelector(".btn--hold");
 const diceEl = document.querySelector(".dice");
 
 // Set Initial Score
-const score = [0, 0];
+let score = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
 let playing = true;
@@ -76,9 +76,32 @@ holdDiceEl.addEventListener("click", () => {
       document
         .querySelector(`.player--${activePlayer}`)
         .classList.remove(`player--active`);
+
+      return;
     }
 
     // 4) switch player
     switchPlayer();
   }
+});
+
+newDiceEl.addEventListener("click", () => {
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.remove(`player--winner`);
+
+  // Reset variable
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+  score = [0, 0];
+
+  // Reset Field
+  player0El.classList.add("player--active");
+
+  score0El.textContent = currentScore;
+  score1El.textContent = currentScore;
+  current0El.textContent = currentScore;
+  current1El.textContent = currentScore;
+  diceEl.classList.add("hidden");
 });
