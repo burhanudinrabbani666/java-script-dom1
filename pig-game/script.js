@@ -33,6 +33,7 @@ function switchPlayer() {
   player1El.classList.toggle("player--active");
 }
 
+// DOM Manipulation
 score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add("hidden");
@@ -65,7 +66,7 @@ holdDiceEl.addEventListener("click", () => {
       score[activePlayer];
 
     // 2) check if playerscore is >= 100
-    if (score[activePlayer] >= 20) {
+    if (score[activePlayer] >= 100) {
       playing = false;
       diceEl.classList.add("hidden");
 
